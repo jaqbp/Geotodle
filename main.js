@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import {createInput} from './functions.js'
+import {showText} from './functions.js'
 
 let currentScene = 'main';
 const scenes = {
@@ -53,6 +55,7 @@ function initGameScene() {
     scenes.game.add(root);
     cameraAnimating = true;
     showText("Halemba");
+    createInput();
     });
 }
 
@@ -90,19 +93,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function showText(content) {
-    const textDiv = document.createElement('div');
-    textDiv.classList.add('animated-text');
-    textDiv.style.position = 'absolute';
-    textDiv.style.top = '40px';
-    textDiv.style.width = '100%';
-    textDiv.style.textAlign = 'center';
-    textDiv.style.color = 'white';
-    textDiv.style.fontSize = '50px';
-    textDiv.style.fontFamily = 'Outfit, sans-serif';
-    textDiv.innerHTML = content;
-    document.body.appendChild(textDiv);
-}
+
 
 function clearTexts() {
     const existingTexts = document.querySelectorAll('.animated-text');
