@@ -26,24 +26,34 @@ controls.enablePan = false;
 let cameraAnimating = true;
 
 function initMainScene() {
+    clearTexts();
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.main.add(ambientLight);
+    const textDiv = document.createElement('div');
+    textDiv.classList.add('animated-text');
+    textDiv.style.position = 'absolute';
+    textDiv.style.top = '40px';
+    textDiv.style.width = '100%';
+    textDiv.style.textAlign = 'center';
+    textDiv.style.color = 'white';
+    textDiv.style.fontSize = '100px';
+    textDiv.style.fontFamily = 'Outfit, sans-serif';
+    textDiv.innerHTML = 'Geotodle';
+    document.body.appendChild(textDiv);
+}
 
+function initGameScene() {
+    clearTexts();
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    scenes.game.add(ambientLight);
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('halemba_model.gltf', (gltf) => {
     const root = gltf.scene;
     root.position.set(0, 0, 0);
-    scenes.main.add(root);
+    scenes.game.add(root);
     cameraAnimating = true;
+    showText("Halemba");
     });
-   
-}
-
-function initGameScene() {
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-    scenes.game.add(ambientLight);
-
-   
 }
 
 function switchScene(sceneName) {
@@ -62,14 +72,12 @@ function animate() {
     requestAnimationFrame(animate);
     controls.update();
 
-    if (currentScene === 'main' && cameraAnimating) {
-        // Animacja kamery dla sceny głównej
+    if (currentScene === 'game' && cameraAnimating) {
         camera.position.z += 0.03;
         camera.position.x += 0.03;
         camera.position.y += 0.03;
         if (camera.position.z > 12) {
             cameraAnimating = false; 
-            showText();
         }
     }
 
@@ -82,7 +90,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function showText() {
+function showText(content) {
     const textDiv = document.createElement('div');
     textDiv.classList.add('animated-text');
     textDiv.style.position = 'absolute';
@@ -92,8 +100,15 @@ function showText() {
     textDiv.style.color = 'white';
     textDiv.style.fontSize = '50px';
     textDiv.style.fontFamily = 'Outfit, sans-serif';
-    textDiv.innerHTML = 'Halemba';
+    textDiv.innerHTML = content;
     document.body.appendChild(textDiv);
+}
+
+function clearTexts() {
+    const existingTexts = document.querySelectorAll('.animated-text');
+    existingTexts.forEach(text => {
+        document.body.removeChild(text);
+    });
 }
 
 window.addEventListener('resize', onWindowResize, false);
@@ -115,7 +130,6 @@ function addSceneSwitchButton() {
         }
     });
 }
-
 
 initMainScene();
 addSceneSwitchButton();
