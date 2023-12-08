@@ -50,7 +50,7 @@ function initGameScene() {
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.game.add(ambientLight);
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('halemba_model.gltf', (gltf) => {
+    gltfLoader.load('models/zakopiec.gltf', (gltf) => {
     const root = gltf.scene;
     root.position.set(0, 0, 0);
     scenes.game.add(root);
