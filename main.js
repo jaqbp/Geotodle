@@ -42,6 +42,7 @@ function initMainScene() {
     textDiv.style.fontFamily = 'Outfit, sans-serif';
     textDiv.innerHTML = 'Geotodle';
     document.body.appendChild(textDiv);
+
 }
 
 function initGameScene() {
