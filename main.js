@@ -3,6 +3,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {createInput} from './functions.js'
 import {showText} from './functions.js'
+import { initializeModelsInGame } from './functions.js';
+import { createNextButton } from './functions.js';
 
 let currentScene = 'main';
 const scenes = {
@@ -42,22 +44,48 @@ function initMainScene() {
     textDiv.style.fontFamily = 'Outfit, sans-serif';
     textDiv.innerHTML = 'Geotodle';
     document.body.appendChild(textDiv);
+
 }
 
 function initGameScene() {
+    /*clear scene*/
+    scenes.game.children = [];
     clearTexts();
+    let ModelsInGame = initializeModelsInGame("path");
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.game.add(ambientLight);
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('models/zakopiec.gltf', (gltf) => {
-    const root = gltf.scene;
-    root.position.set(0, 0, 0);
-    scenes.game.add(root);
-    cameraAnimating = true;
-    showText("Halemba");
-    createInput();
-    });
+    let currentIndex = 0;
+
+    function loadModel(index) {
+        if (index < ModelsInGame.length) {
+            gltfLoader.load(ModelsInGame[index].getPath(), (gltf) => {
+                const root = gltf.scene;
+                root.position.set(0, 0, 0);
+                scenes.game.add(root);
+                cameraAnimating = true;
+                showText(ModelsInGame[index].getName());
+                createInput(); 
+                input = document.querySelector('.animated-input');
+                createNextButton();
+            });
+        }
+    }
+
+    function createNextButton() {
+        const nextButton = document.createElement('button');
+        nextButton.innerText = 'Następne miasto';
+        nextButton.addEventListener('click', () => {
+            scenes.game.remove(scenes.game.children.find(child => child === gltf.scene));
+            currentIndex++;
+            loadModel(currentIndex);
+        });
+        document.body.appendChild(nextButton);
+    }
+
+    loadModel(currentIndex);
 }
+
 
 function switchScene(sceneName) {
     currentScene = sceneName;

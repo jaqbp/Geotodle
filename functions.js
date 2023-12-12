@@ -1,3 +1,5 @@
+import { CityModel3d } from "./classes";
+
 export function createInput() {
     const input = document.createElement('input');
     input.classList.add('animated-input');
@@ -32,4 +34,50 @@ export function showText(content) {
     textDiv.style.fontFamily = 'Outfit, sans-serif';
     textDiv.innerHTML = content;
     document.body.appendChild(textDiv);
+}
+
+export function createNextButton() {
+    const button = document.createElement('button');
+    button.classList.add('animated-button');
+    button.style.position = 'absolute';
+    button.style.bottom = '20px';
+    button.style.left = '50%';
+    button.style.transform = 'translateX(-50%)';
+    button.style.zIndex = 1000;
+    button.style.width = '300px';
+    button.style.height = '50px';
+    button.style.border = '2px solid black';
+    button.style.borderRadius = '10px';
+    button.style.padding = '10px';
+    button.style.fontSize = '20px';
+    button.style.fontFamily = 'Outfit, sans-serif';
+    button.style.textAlign = 'center';
+    button.style.color = 'black';
+    button.style.backgroundColor = 'white';
+    button.innerHTML = 'Dalej';
+    document.body.appendChild(button);
+
+}
+
+export function initializeModelsInGame(pathToSetOfModels) {
+    let modelsInGame = [];
+    const models = [
+        new CityModel3d('Halemba', 'Najwspanialsza dzielnica', 'models/halemba_model.gltf'),
+        new CityModel3d('Zakopiec', 'Drogie parkingi', 'models/zakopiec.gltf'),
+        new CityModel3d('Gdynia', 'Młody G rejon', 'models/gpumpkin.gltf'),
+        new CityModel3d('Katowice', 'Miasto ogrodów i nie tylko', 'models/katovicehaha.gltf'),
+        new CityModel3d('Koluszki', 'Stolica polski nr 2 po Halembie', 'models/koliszkiaco.gltf'),
+        new CityModel3d('Wrocław', 'Tam mam kolegę', 'models/wroclove.gltf'),
+    ]
+    modelsInGame = shuffleArray(models);
+    return modelsInGame;
+}
+
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
