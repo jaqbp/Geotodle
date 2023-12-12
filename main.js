@@ -4,9 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {createInput} from './functions.js'
 import {showText} from './functions.js'
 import { initializeModelsInGame } from './functions.js';
-import { createNextButton } from './functions.js';
 import {clearTexts} from './functions.js';
 import {clearInputs} from './functions.js';
+import { clearButtons } from './functions.js';
 let currentScene = 'main';
 const scenes = {
     main: new THREE.Scene(),
@@ -52,23 +52,46 @@ function initMainScene() {
 function initGameScene() {
     scenes.game.children = [];
     clearTexts();
+    createNextButton();
     let ModelsInGame = initializeModelsInGame("path");
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.game.add(ambientLight);
-    const gltfLoader = new GLTFLoader();
+    let input;
     let currentIndex = 0;
+    const gltfLoader = new GLTFLoader();
 
     function loadModel(index) {
         if (index < ModelsInGame.length) {
             gltfLoader.load(ModelsInGame[index].getPath(), (gltf) => {
                 const root = gltf.scene;
                 root.position.set(0, 0, 0);
+                scenes.game.add(ambientLight);
                 scenes.game.add(root);
+
                 cameraAnimating = true;
                 showText(ModelsInGame[index].getName());
                 createInput(); 
                 input = document.querySelector('.animated-input');
-                createNextButton();
+                if (index !== (ModelsInGame.length - 1)) {
+                    clearButtons();
+                    createNextButton();
+                } else {
+                    const nextButton = document.querySelector('.animated-button');
+                    nextButton.innerHTML = 'Zakończ';
+                    nextButton.style.position = 'absolute';
+                    nextButton.style.bottom = '40px';
+                    nextButton.style.right = '10%';
+                    nextButton.style.transform = 'translateX(-40%)';
+                    nextButton.classList.add('animated-button');
+                    nextButton.style.zIndex = 1000;
+                    nextButton.addEventListener('click', () => {
+                        clearTexts();
+                        clearInputs();
+                        clearButtons();
+                        switchScene('main');
+                    });
+                }
+                
             });
         }
     }
@@ -76,9 +99,18 @@ function initGameScene() {
     function createNextButton() {
         const nextButton = document.createElement('button');
         nextButton.innerText = 'Następne miasto';
+        nextButton.style.position = 'absolute';
+        nextButton.style.bottom = '40px';
+        nextButton.style.right = '10%';
+        nextButton.style.transform = 'translateX(-30%)';
+        nextButton.classList.add('animated-button');
+        nextButton.style.zIndex = 1000;
         nextButton.addEventListener('click', () => {
-            scenes.game.remove(scenes.game.children.find(child => child === gltf.scene));
+            console.log(scenes.game.children)
+            scenes.game.children = [];
             currentIndex++;
+            console.log(ModelsInGame[currentIndex].getName());
+            clearTexts();
             loadModel(currentIndex);
         });
         document.body.appendChild(nextButton);
