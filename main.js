@@ -58,6 +58,7 @@ function initGameScene() {
     scenes.game.add(ambientLight);
     let input;
     let currentIndex = 0;
+    let isGuessed = false; 
     const gltfLoader = new GLTFLoader();
 
     function loadModel(index) {
@@ -67,13 +68,15 @@ function initGameScene() {
                 root.position.set(0, 0, 0);
                 scenes.game.add(ambientLight);
                 scenes.game.add(root);
-
                 cameraAnimating = true;
-                showText(ModelsInGame[index].getName());
-                createInput(); 
+                clearInputs(); 
+                clearTexts();
+                createInput();
+                showText("Jakie to miasto?");
                 input = document.querySelector('.animated-input');
                 if (index !== (ModelsInGame.length - 1)) {
                     clearButtons();
+                    isGuessed = false;
                     createNextButton();
                 } else {
                     const nextButton = document.querySelector('.animated-button');
@@ -98,20 +101,46 @@ function initGameScene() {
 
     function createNextButton() {
         const nextButton = document.createElement('button');
-        nextButton.innerText = 'Następne miasto';
+        nextButton.innerText = 'Sprawdź';
         nextButton.style.position = 'absolute';
         nextButton.style.bottom = '40px';
         nextButton.style.right = '10%';
-        nextButton.style.transform = 'translateX(-30%)';
+        nextButton.style.width = '200px';
+        nextButton.style.height = '20px';
+        nextButton.style.border = '2px solid black';
+        nextButton.style.borderRadius = '10px';
+        nextButton.style.padding = '40px';
+        nextButton.style.fontSize = '20px';
+        nextButton.style.fontFamily = 'Outfit, sans-serif';
+        nextButton.style.textAlign = 'center';
+        nextButton.style.color = 'black';
+        nextButton.style.backgroundColor = 'white';
         nextButton.classList.add('animated-button');
         nextButton.style.zIndex = 1000;
         nextButton.addEventListener('click', () => {
-            console.log(scenes.game.children)
-            scenes.game.children = [];
-            currentIndex++;
-            console.log(ModelsInGame[currentIndex].getName());
-            clearTexts();
-            loadModel(currentIndex);
+            input = document.querySelector('.animated-input');
+            if (isGuessed) {
+                console.log(input.value);
+                scenes.game.children = [];
+                currentIndex++;
+                console.log(ModelsInGame[currentIndex].getName());
+                clearTexts();
+                loadModel(currentIndex);
+            }
+            else {
+                if (input.value.toLowerCase() === ModelsInGame[currentIndex].getName().toLowerCase()) {
+                    clearTexts();
+                    showText("Dobrze!");
+                    nextButton.innerText = 'Następne';
+                    isGuessed = true;
+                } 
+                else {
+                    clearTexts();
+                    showText("Źle!");
+                    nextButton.innerText = 'Następne';
+                    isGuessed = true;
+                }
+            }
         });
         document.body.appendChild(nextButton);
     }
@@ -158,7 +187,7 @@ window.addEventListener('resize', onWindowResize, false);
 
 function addSceneSwitchButton() {
     const button = document.createElement('button');
-    button.innerHTML = 'Przełącz scenę';
+    button.innerHTML = 'Zmień scenę';
     button.style.position = 'absolute';
     button.style.top = '20px';
     button.style.left = '20px';
