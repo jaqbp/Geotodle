@@ -60,6 +60,7 @@ function initGameScene() {
     let input;
     let currentIndex = 0;
     let isGuessed = false; 
+    let score = 0;
     const gltfLoader = new GLTFLoader();
 
     function loadModel(index) {
@@ -79,7 +80,7 @@ function initGameScene() {
                     clearButtons();
                     isGuessed = false;
                     createNextButton();
-                } else {
+                } else {     
                     const nextButton = document.querySelector('.animated-button');
                     nextButton.innerHTML = 'Zakończ';
                     nextButton.style.zIndex = 1000;
@@ -87,12 +88,57 @@ function initGameScene() {
                         clearTexts();
                         clearInputs();
                         clearButtons();
-                        switchScene('main');
+                        showSummary();
                     });
                 }
                 
             });
         }
+    }
+
+    function showSummary() {
+        clearTexts();
+        clearInputs();
+        clearButtons();
+        let summary = document.createElement('div');
+        summary.classList.add('animated-text');
+        summary.style.position = 'absolute';
+        summary.style.top = '40px';
+        summary.style.width = '100%';
+        summary.style.textAlign = 'center';
+        summary.style.color = 'white';
+        summary.style.fontSize = '100px';
+        summary.style.fontFamily = 'Outfit, sans-serif';
+        summary.innerHTML = 'Koniec gry!';
+        summary.innerHTML += '<br>';
+        summary.innerHTML += 'Twój wynik to: ' + score + '/' + ModelsInGame.length;
+        document.body.appendChild(summary);
+        const nextButton = document.createElement('button');
+        nextButton.innerText = 'Wróć do menu';
+        nextButton.style.position = 'absolute';
+        nextButton.style.bottom = '20px';
+        nextButton.style.left = '50%';
+        nextButton.style.transform = 'translateX(-50%)';
+        nextButton.style.zIndex = 1000;
+        nextButton.style.width = '300px';
+        nextButton.style.height = '50px';
+        nextButton.style.border = '2px solid black';
+        nextButton.style.borderRadius = '10px';
+        nextButton.style.padding = '10px';
+        nextButton.style.fontSize = '20px';
+        nextButton.style.fontFamily = 'Outfit, sans-serif';
+        nextButton.style.textAlign = 'center';
+        nextButton.style.color = 'black';
+        nextButton.style.backgroundColor = 'white';
+        nextButton.classList.add('animated-button');
+        nextButton.style.zIndex = 1000;
+        nextButton.addEventListener('click', () => {
+            clearTexts();
+            clearInputs();
+            clearButtons();
+            switchScene('main');
+        });
+        document.body.appendChild(nextButton);
     }
 
     function createNextButton() {
@@ -116,6 +162,10 @@ function initGameScene() {
             input = document.querySelector('.animated-input');
             if (isGuessed) {
                 console.log(input.value);
+                if (currentIndex === (ModelsInGame.length - 1)) {
+                    showSummary();  
+                    return;
+                }
                 scenes.game.children = [];
                 currentIndex++;
                 console.log(ModelsInGame[currentIndex].getName());
@@ -126,13 +176,22 @@ function initGameScene() {
                 if (input.value.toLowerCase() === ModelsInGame[currentIndex].getName().toLowerCase()) {
                     clearTexts();
                     showText("Dobrze!");
-                    nextButton.innerText = 'Następne';
+                    score++;
+                    if (currentIndex !== (ModelsInGame.length - 1)) {
+                        nextButton.innerText = 'Następne';
+                    } else {
+                        nextButton.innerText = 'Zakończ';
+                    }
                     isGuessed = true;
                 } 
                 else {
                     clearTexts();
                     showText("Źle!");
-                    nextButton.innerText = 'Następne';
+                    if (currentIndex !== (ModelsInGame.length - 1)) {
+                        nextButton.innerText = 'Następne';
+                    } else {
+                        nextButton.innerText = 'Zakończ';
+                    }
                     isGuessed = true;
                 }
             }
