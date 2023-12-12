@@ -40,15 +40,15 @@ export function createNextButton() {
     const button = document.createElement('button');
     button.classList.add('animated-button');
     button.style.position = 'absolute';
-    button.style.bottom = '20px';
+    button.style.bottom = '40px';
     button.style.left = '50%';
-    button.style.transform = 'translateX(-50%)';
+    button.style.transform = 'translateX(-30%)';
     button.style.zIndex = 1000;
     button.style.width = '300px';
     button.style.height = '50px';
     button.style.border = '2px solid black';
     button.style.borderRadius = '10px';
-    button.style.padding = '10px';
+    button.style.padding = '40px';
     button.style.fontSize = '20px';
     button.style.fontFamily = 'Outfit, sans-serif';
     button.style.textAlign = 'center';
@@ -66,13 +66,32 @@ export function initializeModelsInGame(pathToSetOfModels) {
         new CityModel3d('Zakopiec', 'Drogie parkingi', 'models/zakopiec.gltf'),
         new CityModel3d('Gdynia', 'Młody G rejon', 'models/gpumpkin.gltf'),
         new CityModel3d('Katowice', 'Miasto ogrodów i nie tylko', 'models/katovicehaha.gltf'),
-        new CityModel3d('Koluszki', 'Stolica polski nr 2 po Halembie', 'models/koliszkiaco.gltf'),
         new CityModel3d('Wrocław', 'Tam mam kolegę', 'models/wroclove.gltf'),
     ]
     modelsInGame = shuffleArray(models);
     return modelsInGame;
 }
 
+export function clearInputs() {
+    const existingInputs = document.querySelectorAll('.animated-input');
+    existingInputs.forEach(input => {
+        document.body.removeChild(input);
+    });
+}
+
+export function clearTexts() {
+    const existingTexts = document.querySelectorAll('.animated-text');
+    existingTexts.forEach(text => {
+        document.body.removeChild(text);
+    });
+}
+
+export function clearButtons() {
+    const existingButtons = document.querySelectorAll('.animated-button');
+    existingButtons.forEach(button => {
+        document.body.removeChild(button);
+    });
+}
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -81,3 +100,7 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+
+
+
