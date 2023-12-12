@@ -73,6 +73,20 @@ export function initializeModelsInGame(pathToSetOfModels) {
     return modelsInGame;
 }
 
+export function clearInputs() {
+    const existingInputs = document.querySelectorAll('.animated-input');
+    existingInputs.forEach(input => {
+        document.body.removeChild(input);
+    });
+}
+
+export function clearTexts() {
+    const existingTexts = document.querySelectorAll('.animated-text');
+    existingTexts.forEach(text => {
+        document.body.removeChild(text);
+    });
+}
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -81,3 +95,7 @@ function shuffleArray(array) {
     }
     return array;
 }
+
+
+
+

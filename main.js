@@ -5,7 +5,8 @@ import {createInput} from './functions.js'
 import {showText} from './functions.js'
 import { initializeModelsInGame } from './functions.js';
 import { createNextButton } from './functions.js';
-
+import {clearTexts} from './functions.js';
+import {clearInputs} from './functions.js';
 let currentScene = 'main';
 const scenes = {
     main: new THREE.Scene(),
@@ -30,6 +31,7 @@ controls.enablePan = false;
 let cameraAnimating = true;
 
 function initMainScene() {
+    clearInputs();
     clearTexts();
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.main.add(ambientLight);
@@ -48,7 +50,6 @@ function initMainScene() {
 }
 
 function initGameScene() {
-    /*clear scene*/
     scenes.game.children = [];
     clearTexts();
     let ModelsInGame = initializeModelsInGame("path");
@@ -119,15 +120,6 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-
-
-function clearTexts() {
-    const existingTexts = document.querySelectorAll('.animated-text');
-    existingTexts.forEach(text => {
-        document.body.removeChild(text);
-    });
 }
 
 window.addEventListener('resize', onWindowResize, false);
