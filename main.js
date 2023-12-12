@@ -31,6 +31,7 @@ controls.enablePan = false;
 let cameraAnimating = true;
 
 function initMainScene() {
+    clearButtons();
     clearInputs();
     clearTexts();
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
@@ -81,11 +82,6 @@ function initGameScene() {
                 } else {
                     const nextButton = document.querySelector('.animated-button');
                     nextButton.innerHTML = 'Zakończ';
-                    nextButton.style.position = 'absolute';
-                    nextButton.style.bottom = '40px';
-                    nextButton.style.right = '10%';
-                    nextButton.style.transform = 'translateX(-40%)';
-                    nextButton.classList.add('animated-button');
                     nextButton.style.zIndex = 1000;
                     nextButton.addEventListener('click', () => {
                         clearTexts();
@@ -106,10 +102,9 @@ function initGameScene() {
         nextButton.style.bottom = '40px';
         nextButton.style.right = '10%';
         nextButton.style.width = '200px';
-        nextButton.style.height = '20px';
         nextButton.style.border = '2px solid black';
         nextButton.style.borderRadius = '10px';
-        nextButton.style.padding = '40px';
+        nextButton.style.padding = '20px';
         nextButton.style.fontSize = '20px';
         nextButton.style.fontFamily = 'Outfit, sans-serif';
         nextButton.style.textAlign = 'center';
