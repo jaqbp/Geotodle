@@ -63,10 +63,11 @@ export function initializeModelsInGame(pathToSetOfModels) {
     let modelsInGame = [];
     const models = [
         new CityModel3d('Halemba', 'Najwspanialsza dzielnica', 'models/halemba_model.gltf'),
-        new CityModel3d('Zakopiec', 'Drogie parkingi', 'models/zakopiec.gltf'),
-        new CityModel3d('Gdynia', 'Młody G rejon', 'models/gpumpkin.gltf'),
-        new CityModel3d('Katowice', 'Miasto ogrodów i nie tylko', 'models/katovicehaha.gltf'),
-        new CityModel3d('Wrocław', 'Tam mam kolegę', 'models/wroclove.gltf'),
+        new CityModel3d('Szczecin', 'Masoneria i morze', 'models/szczecin.gltf'),
+        new CityModel3d('Zakopiec', 'Drogie parkingi i krokiew', 'models/zakopiec.gltf'),
+        new CityModel3d('Zamość', 'Kawusia u Zamoyskiego i ładny rynek', 'models/zamosc.gltf'),
+        new CityModel3d('Warszawa', 'JWP, Praga Północ, Stadion, PKIN i cyrk na Wiejskiej', 'models/wawka.gltf'),
+        new CityModel3d('Gliwice', 'MS, Cyrk na Kujawskiej, troche rynku', 'models/gliwice.gltf'),
     ]
     modelsInGame = shuffleArray(models);
     return modelsInGame;
