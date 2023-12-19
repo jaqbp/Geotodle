@@ -3,52 +3,29 @@
 
 <head>
     <meta charset="utf-8">
-    <title>3D Playground</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100&family=Poppins:wght@100&family=Prompt:wght@100&family=Raleway:wght@100&display=swap');
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animated-text {
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn2 {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .animated-input {
-            animation: fadeIn2 1s ease-out;
-        }
-
-        .animated-button {
-            font-size: 30px;
-        }
-
-        body {
-            background-color: black;
-            margin: 0;
-        }
-    </style>
+    <title>Geotodle</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
+
+    <div id="menu" class="menu">
+        <div class="upper">
+            Geotodle
+        </div>
+        <div class="button-group">
+            <button class="menu-button">Graj</button>
+            <button class="menu-button">2</button>
+            <button class="menu-button">3</button>
+        </div>
+    </div>
+
+    <div id="gameplay" class="gameplay">
+        <div>
+
+        </div>
+    </div>
+
     <script type="module" src="/main.js"></script>
 </body>
 

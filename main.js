@@ -7,6 +7,8 @@ import { initializeModelsInGame } from './functions.js';
 import {clearTexts} from './functions.js';
 import {clearInputs} from './functions.js';
 import { clearButtons } from './functions.js';
+import './styles.css'
+
 let currentScene = 'main';
 const scenes = {
     main: new THREE.Scene(),
@@ -36,18 +38,17 @@ function initMainScene() {
     clearTexts();
     const ambientLight = new THREE.AmbientLight(0xffffff, 2);
     scenes.main.add(ambientLight);
-    const textDiv = document.createElement('div');
-    textDiv.classList.add('animated-text');
-    textDiv.style.position = 'absolute';
-    textDiv.style.top = '40px';
-    textDiv.style.width = '100%';
-    textDiv.style.textAlign = 'center';
-    textDiv.style.color = 'white';
-    textDiv.style.fontSize = '100px';
-    textDiv.style.fontFamily = 'Outfit, sans-serif';
-    textDiv.innerHTML = 'Geotodle';
-    document.body.appendChild(textDiv);
-
+    // const textDiv = document.createElement('div');
+    // textDiv.classList.add('animated-text');
+    // textDiv.style.position = 'absolute';
+    // textDiv.style.top = '40px';
+    // textDiv.style.width = '100%';
+    // textDiv.style.textAlign = 'center';
+    // textDiv.style.color = 'white';
+    // textDiv.style.fontSize = '100px';
+    // textDiv.style.fontFamily = 'Outfit, sans-serif';
+    // textDiv.innerHTML = 'Geotodle';
+    // document.body.appendChild(textDiv);
 }
 
 function initGameScene() {
@@ -229,6 +230,14 @@ function animate() {
     }
 
     renderer.render(scenes[currentScene], camera);
+
+    // Sprawdzanie i aktualizowanie widoczności przycisku
+    const playButton = document.querySelector('.start-button');
+    const infoButton = document.querySelector('.info-button');
+    const previousButton = document.querySelector('.previous-games-button');
+    infoButton.style.display = currentScene === 'main' ? 'block' : 'none';
+    playButton.style.display = currentScene === 'main' ? 'block' : 'none';
+    previousButton.style.display = currentScene === 'main' ? 'block' : 'none';
 }
 
 function onWindowResize() {
@@ -239,13 +248,11 @@ function onWindowResize() {
 
 window.addEventListener('resize', onWindowResize, false);
 
-function addSceneSwitchButton() {
+function startGameButton() {
     const button = document.createElement('button');
-    button.innerHTML = 'Zmień scenę';
-    button.style.position = 'absolute';
-    button.style.top = '20px';
-    button.style.left = '20px';
-    button.style.zIndex = 1000;
+    button.classList.add('main-menu-button-container');
+    button.classList.add('start-button');
+    button.innerHTML = 'Graj';
     document.body.appendChild(button);
 
     button.addEventListener('click', () => {
@@ -257,6 +264,34 @@ function addSceneSwitchButton() {
     });
 }
 
-initMainScene();
-addSceneSwitchButton();
+function authorsInfoButton() {
+    const button = document.createElement('button');
+    button.classList.add('main-menu-button-container');
+    button.classList.add('info-button');
+    button.innerHTML = 'Informacje i autorzy';
+    document.body.appendChild(button);
+
+    // EventListener i funkcja do przełączania do dorobienia
+}
+
+function previousGamesButton() {
+    const button = document.createElement('button');
+    button.classList.add('main-menu-button-container');
+    button.classList.add('previous-games-button');
+    button.innerHTML = 'Poprzednie gry';
+    document.body.appendChild(button);
+
+    // EventListener i funkcja do przełączania do dorobienia
+}
+const menu = document.querySelector('#menu')
+const graj = document.querySelector('#graj');
+graj.onclick = () => {
+    switchScene('game');
+    menu.classList.add('hidden')
+
+}
+// initMainScene();
+// startGameButton();
+// authorsInfoButton();
+// previousGamesButton();
 animate();

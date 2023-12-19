@@ -68,6 +68,7 @@ export function initializeModelsInGame(pathToSetOfModels) {
         new CityModel3d('Zamość', 'Kawusia u Zamoyskiego i ładny rynek', 'models/zamosc.gltf'),
         new CityModel3d('Warszawa', 'JWP, Praga Północ, Stadion, PKIN i cyrk na Wiejskiej', 'models/wawka.gltf'),
         new CityModel3d('Gliwice', 'MS, Cyrk na Kujawskiej, troche rynku', 'models/gliwice.gltf'),
+        new CityModel3d('Kędzierzyn', 'Miasto zajebistości no c\'mon', 'models/kedzierzyn.gltf'),
     ]
     modelsInGame = shuffleArray(models);
     return modelsInGame;
