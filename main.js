@@ -232,12 +232,12 @@ function animate() {
     renderer.render(scenes[currentScene], camera);
 
     // Sprawdzanie i aktualizowanie widoczności przycisku
-    const playButton = document.querySelector('.start-button');
-    const infoButton = document.querySelector('.info-button');
-    const previousButton = document.querySelector('.previous-games-button');
-    infoButton.style.display = currentScene === 'main' ? 'block' : 'none';
-    playButton.style.display = currentScene === 'main' ? 'block' : 'none';
-    previousButton.style.display = currentScene === 'main' ? 'block' : 'none';
+    // const playButton = document.querySelector('.start-button');
+    // const infoButton = document.querySelector('.info-button');
+    // const previousButton = document.querySelector('.previous-games-button');
+    // infoButton.style.display = currentScene === 'main' ? 'block' : 'none';
+    // playButton.style.display = currentScene === 'main' ? 'block' : 'none';
+    // previousButton.style.display = currentScene === 'main' ? 'block' : 'none';
 }
 
 function onWindowResize() {
@@ -248,21 +248,21 @@ function onWindowResize() {
 
 window.addEventListener('resize', onWindowResize, false);
 
-function startGameButton() {
-    const button = document.createElement('button');
-    button.classList.add('main-menu-button-container');
-    button.classList.add('start-button');
-    button.innerHTML = 'Graj';
-    document.body.appendChild(button);
+// function startGameButton() {
+//     const button = document.createElement('button');
+//     button.classList.add('main-menu-button-container');
+//     button.classList.add('start-button');
+//     button.innerHTML = 'Graj';
+//     document.body.appendChild(button);
 
-    button.addEventListener('click', () => {
-        if (currentScene === 'main') {
-            switchScene('game');
-        } else {
-            switchScene('main');
-        }
-    });
-}
+//     button.addEventListener('click', () => {
+//         if (currentScene === 'main') {
+//             switchScene('game');
+//         } else {
+//             switchScene('main');
+//         }
+//     });
+// }
 
 function authorsInfoButton() {
     const button = document.createElement('button');
@@ -283,15 +283,14 @@ function previousGamesButton() {
 
     // EventListener i funkcja do przełączania do dorobienia
 }
+
 const menu = document.querySelector('#menu')
-const graj = document.querySelector('#graj');
+const graj = document.querySelector('#play');
 graj.onclick = () => {
     switchScene('game');
     menu.classList.add('hidden')
 
 }
+
 // initMainScene();
-// startGameButton();
-// authorsInfoButton();
-// previousGamesButton();
 animate();

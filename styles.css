@@ -99,6 +99,7 @@ body {
     flex-direction: column;
     margin-top: 4rem;
     gap: 2rem;
+    animation: fadeIn 1s ease-out;
 }
 
 .menu-button {
@@ -109,6 +110,7 @@ body {
     border: 2px solid rgb(111, 111, 111);
     cursor: pointer;
     border-radius: 5px;
+    font-size: 20px;
 }
 
 .menu-button:hover {
