@@ -71,8 +71,14 @@ body {
     display: none;
 }
 
-.gameplay {
+#plot {
+    width: 30%;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
 
+.hidden {
+    display: none;
 }
 
 .gameplay.hidden {

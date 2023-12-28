@@ -209,10 +209,14 @@ function switchScene(sceneName) {
     camera.position.set(0, 0, 1); // Resetuj pozycję kamery
     controls.reset(); // Resetuj kontrolery
 
+    const plotIframe = document.getElementById('plot');
+
     if (sceneName === 'game') {
         initGameScene();
+        plotIframe.classList.remove('hidden'); // Pokaż wykres
     } else {
         initMainScene();
+        plotIframe.classList.add('hidden'); // Ukryj wykres
     }
 }
 
