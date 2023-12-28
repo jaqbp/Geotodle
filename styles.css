@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100&family=Poppins:wght@100&family=Prompt:wght@100&family=Raleway:wght@100&display=swap');
+
+body {
+    background-color: black;
+    margin: 0;
+}
+
+.animated-input {
+    animation: fadeIn2 1s ease-out;
+}
+
+.animated-button {
+    font-size: 30px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn2 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* .main-menu-button-container {
+    text-align: center;
+    padding: 1% 5%;
+    left: 40%;
+    width: 20rem;
+} */
+
+/* .start-button {
+    position: fixed;
+    top: 40%;
+}
+
+.info-button {
+    position: fixed;
+    top: 50%;
+}
+
+.previous-games-button {
+    position: fixed;
+    top: 60%;
+} */
+
+.menu {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    flex: 70%
+}
+
+.menu.hidden {
+    display: none;
+}
+
+#plot {
+    width: 30%;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.gameplay.hidden {
+    display: none;
+}
+
+/* .animated-text {
+    animation: fadeIn 1s ease-out;
+} */
+
+.upper {
+    display: flex;
+    color: white;
+    flex: 30%;
+    align-items: center;
+    font-size: 90px;
+    font-family: Outfit, sans-serif;
+    animation: fadeIn 1s ease-out;
+}
+
+.button-group {
+    display: flex;
+    flex: 70%;
+    flex-direction: column;
+    margin-top: 4rem;
+    gap: 2rem;
+    animation: fadeIn 1s ease-out;
+}
+
+.menu-button {
+    color: white;
+    width: 20rem;
+    padding: 1rem 1rem;
+    background-color: black;
+    border: 2px solid rgb(111, 111, 111);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.menu-button:hover {
+    background-color: rgb(111, 111, 111);
+}
