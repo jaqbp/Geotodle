@@ -21,7 +21,15 @@
     </div>
 
     <div id="gameplay" class="gameplay">
-        <iframe id="plot" class="hidden" width="900" height="800" frameborder="0" scrolling="no" src="//plotly.com/~bartsmo430/2.embed"></iframe>
+        <div class="plot-container">
+            <iframe id="plot" class="hidden" width="900" height="400" frameborder="0" scrolling="no" src="//plotly.com/~bartsmo430/2.embed"></iframe>
+        </div>
+        
+        <button id="dane" class="dane menu-button hidden">Pokaż dane/scenę</button>
+        <button id="nextButton" class="nextButton animated-button hidden">Sprawdź</button>
+        <!-- <div id="summary" class="hidden animated-text">
+
+        </div> -->
     </div>
 
     <script type="module" src="/main.js"></script>

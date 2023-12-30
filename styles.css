@@ -71,19 +71,26 @@ body {
     display: none;
 }
 
+.plot-container {
+    position: relative;
+    /* justify-content: center;
+    align-items: center; */
+}
+
 #plot {
-    width: 30%;
-    margin-top: 2rem;
-    margin-left: 2rem;
+    position: absolute;
+    top: 22rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .hidden {
     display: none;
 }
 
-.gameplay.hidden {
+/* .gameplay.hidden {
     display: none;
-}
+} */
 
 /* .animated-text {
     animation: fadeIn 1s ease-out;
@@ -121,4 +128,51 @@ body {
 
 .menu-button:hover {
     background-color: rgb(111, 111, 111);
+}
+
+.dane {
+    position: absolute;
+    top: 40px;
+    right: 6%;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+    color: white;
+    background-color: rgb(38, 38, 38);
+    z-index: 1000;
+}
+
+.nextButton {
+
+    /* nextButton.style.position = 'absolute';
+        nextButton.style.bottom = '40px';
+        nextButton.style.right = '10%';
+        nextButton.style.width = '200px';
+        nextButton.style.border = '2px solid black';
+        nextButton.style.borderRadius = '10px';
+        nextButton.style.padding = '20px';
+        nextButton.style.fontSize = '20px';
+        nextButton.style.fontFamily = 'Outfit, sans-serif';
+        nextButton.style.textAlign = 'center';
+        nextButton.style.color = 'black';
+        nextButton.style.backgroundColor = 'white';
+        nextButton.classList.add('animated-button');
+        nextButton.style.zIndex = 1000; */
+    position: absolute;
+    bottom: 20px;
+    right: 6%;
+    width: 200px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 20px;
+    font-family: 'Outfit', sans-serif;
+    text-align: center;
+    color: black;
+    background-color: white;
+    z-index: 1000;
 }

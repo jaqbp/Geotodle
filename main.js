@@ -51,6 +51,7 @@ function initMainScene() {
     // document.body.appendChild(textDiv);
 }
 
+const nextButton = document.querySelector('#nextButton')
 function initGameScene() {
     scenes.game.children = [];
     clearTexts();
@@ -143,22 +144,24 @@ function initGameScene() {
     }
 
     function createNextButton() {
-        const nextButton = document.createElement('button');
-        nextButton.innerText = 'Sprawdź';
-        nextButton.style.position = 'absolute';
-        nextButton.style.bottom = '40px';
-        nextButton.style.right = '10%';
-        nextButton.style.width = '200px';
-        nextButton.style.border = '2px solid black';
-        nextButton.style.borderRadius = '10px';
-        nextButton.style.padding = '20px';
-        nextButton.style.fontSize = '20px';
-        nextButton.style.fontFamily = 'Outfit, sans-serif';
-        nextButton.style.textAlign = 'center';
-        nextButton.style.color = 'black';
-        nextButton.style.backgroundColor = 'white';
-        nextButton.classList.add('animated-button');
-        nextButton.style.zIndex = 1000;
+        // const nextButton = document.createElement('button');
+        // nextButton.innerText = 'Sprawdź';
+        // nextButton.style.position = 'absolute';
+        // nextButton.style.bottom = '40px';
+        // nextButton.style.right = '10%';
+        // nextButton.style.width = '200px';
+        // nextButton.style.border = '2px solid black';
+        // nextButton.style.borderRadius = '10px';
+        // nextButton.style.padding = '20px';
+        // nextButton.style.fontSize = '20px';
+        // nextButton.style.fontFamily = 'Outfit, sans-serif';
+        // nextButton.style.textAlign = 'center';
+        // nextButton.style.color = 'black';
+        // nextButton.style.backgroundColor = 'white';
+        // nextButton.classList.add('animated-button');
+        // nextButton.style.zIndex = 1000;
+
+        // const nextButton = document.querySelector('#nextButton')
         nextButton.addEventListener('click', () => {
             input = document.querySelector('.animated-input');
             if (isGuessed) {
@@ -197,7 +200,7 @@ function initGameScene() {
                 }
             }
         });
-        document.body.appendChild(nextButton);
+        // document.body.appendChild(nextButton);
     }
 
     loadModel(currentIndex);
@@ -209,14 +212,10 @@ function switchScene(sceneName) {
     camera.position.set(0, 0, 1); // Resetuj pozycję kamery
     controls.reset(); // Resetuj kontrolery
 
-    const plotIframe = document.getElementById('plot');
-
     if (sceneName === 'game') {
         initGameScene();
-        plotIframe.classList.remove('hidden'); // Pokaż wykres
     } else {
         initMainScene();
-        plotIframe.classList.add('hidden'); // Ukryj wykres
     }
 }
 
@@ -268,32 +267,46 @@ window.addEventListener('resize', onWindowResize, false);
 //     });
 // }
 
-function authorsInfoButton() {
-    const button = document.createElement('button');
-    button.classList.add('main-menu-button-container');
-    button.classList.add('info-button');
-    button.innerHTML = 'Informacje i autorzy';
-    document.body.appendChild(button);
+// function authorsInfoButton() {
+//     const button = document.createElement('button');
+//     button.classList.add('main-menu-button-container');
+//     button.classList.add('info-button');
+//     button.innerHTML = 'Informacje i autorzy';
+//     document.body.appendChild(button);
 
-    // EventListener i funkcja do przełączania do dorobienia
-}
+//     // EventListener i funkcja do przełączania do dorobienia
+// }
 
-function previousGamesButton() {
-    const button = document.createElement('button');
-    button.classList.add('main-menu-button-container');
-    button.classList.add('previous-games-button');
-    button.innerHTML = 'Poprzednie gry';
-    document.body.appendChild(button);
+// function previousGamesButton() {
+//     const button = document.createElement('button');
+//     button.classList.add('main-menu-button-container');
+//     button.classList.add('previous-games-button');
+//     button.innerHTML = 'Poprzednie gry';
+//     document.body.appendChild(button);
 
-    // EventListener i funkcja do przełączania do dorobienia
-}
+//     // EventListener i funkcja do przełączania do dorobienia
+// }
 
-const menu = document.querySelector('#menu')
+const menu = document.querySelector('#menu');
 const graj = document.querySelector('#play');
+const dane = document.querySelector('#dane');
+const plot = document.querySelector('#plot');
+
 graj.onclick = () => {
     switchScene('game');
     menu.classList.add('hidden')
+    dane.classList.remove('hidden')
+    // plot.classList.remove('hidden')
+    nextButton.classList.remove('hidden')
 
+}
+
+dane.onclick = () => {
+    if (plot.classList.contains('hidden')) {
+        plot.classList.remove('hidden')
+    } else {
+        plot.classList.add('hidden')
+    }
 }
 
 // initMainScene();
