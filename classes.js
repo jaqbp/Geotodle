@@ -1,19 +1,19 @@
-export class CityModel3d  {
-    constructor(name, description, path) {
-        this.name = name;
-        this.description = description;
-        this.path = path;
-    }
-    
-    getName() {
-        return this.name;
-    }
+export class CityModel3d {
+  constructor(name, description, path) {
+    this.name = name;
+    this.description = description;
+    this.path = path;
+  }
 
-    getDescription() {
-        return this.description;
-    }
+  getName() {
+    return this.name;
+  }
 
-    getPath() {
-        return this.path;
-    }
+  getDescription() {
+    return this.description;
+  }
+
+  getPath() {
+    return this.path;
+  }
 }

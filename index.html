@@ -1,38 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
     <title>Geotodle</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-
-<body>
-
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
     <div id="menu" class="menu">
-        <div class="upper">
-            Geotodle
-        </div>
-        <div class="button-group">
-            <button id="play" class="menu-button">Graj</button>
-            <button id="info" class="menu-button">Informacje</button>
-            <button id="previous" class="menu-button">Poprzednie gry</button>
-        </div>
+      <div class="text text--large animation-fade-in">Geotodle</div>
+      <div class="options animation-fade-in">
+        <button id="play" class="btn options__btn">Graj</button>
+        <button id="info" class="btn options__btn">Informacje</button>
+        <button id="previous" class="btn options__btn">Poprzednie gry</button>
+      </div>
     </div>
-
     <div id="gameplay" class="gameplay">
-        <div class="plot-container">
-            <iframe id="plot" class="hidden" width="900" height="400" frameborder="0" scrolling="no" src="//plotly.com/~bartsmo430/2.embed"></iframe>
-        </div>
-        
-        <button id="dane" class="dane menu-button hidden">Pokaż dane/scenę</button>
-        <button id="nextButton" class="nextButton animated-button hidden">Sprawdź</button>
-        <!-- <div id="summary" class="hidden animated-text">
+      <div class="plot-container">
+        <iframe
+          id="plot"
+          class="hidden"
+          width="900"
+          height="400"
+          frameborder="0"
+          scrolling="no"
+          src="//plotly.com/~bartsmo430/2.embed"
+        ></iframe>
+      </div>
+
+      <button id="dane" class="btn btn--dane hidden">Pokaż dane/scenę</button>
+      <div class="canvas-wrapper"></div>
+      <button id="nextButton" class="btn btn--next hidden">Sprawdź</button>
+      <button
+        id="goToMenuBtn"
+        class="animated-button btn btn--next center-x hidden"
+      >
+        Wróć do menu
+      </button>
+      <!-- <div id="summary" class="hidden animation-fade-in">
 
         </div> -->
     </div>
-
     <script type="module" src="/main.js"></script>
-</body>
-
+  </body>
 </html>
