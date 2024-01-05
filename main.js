@@ -6,7 +6,6 @@ import { showText } from "./functions.js";
 import { initializeModelsInGame } from "./functions.js";
 import { clearTexts } from "./functions.js";
 import { clearInputs } from "./functions.js";
-import { clearButtons } from "./functions.js";
 import "./styles.css";
 
 let currentScene = "main";
@@ -22,11 +21,16 @@ const camera = new THREE.PerspectiveCamera(
   1000,
 );
 camera.position.set(0, 0, 1);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+const antiAliasing = false; // Jeżeli laguje mapa to ustaw na false
+const renderer = new THREE.WebGLRenderer({
+  antialias: antiAliasing,
+  alpha: true,
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
-document
-  .getElementsByClassName("canvas-wrapper")[0]
-  .appendChild(renderer.domElement);
+
+const canvasWrapper = document.getElementsByClassName("canvas-wrapper")[0];
+canvasWrapper.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
@@ -42,113 +46,22 @@ let cameraAnimating = true;
 const nextButton = document.querySelector("#nextButton");
 const ambientLight = new THREE.AmbientLight(0xffffff, 2);
 
+let currentIndex = 0;
+let score = 0;
+
+let gameModels = initializeModelsInGame("path");
+
 function loadGameScene() {
+  currentIndex = 0;
+  score = 0;
+  gameModels = initializeModelsInGame("path");
+  canvasWrapper.classList.remove("hidden");
+  nextButton.classList.remove("hidden");
+  showDaneBtn.classList.remove("hidden");
   scenes.game.children = [];
   clearTexts();
-  createNextButton();
-  const gameModels = initializeModelsInGame("path").slice(0, 2);
   scenes.game.add(ambientLight);
-  let input;
-  let currentIndex = 0;
-  let isGuessed = false;
-  let score = 0;
   loadModel(currentIndex);
-
-  function loadModel(index) {
-    if (index >= gameModels.length) {
-      return;
-    }
-    const gltfLoader = new GLTFLoader();
-    renderer.clear();
-    gltfLoader.load(gameModels[index].getPath(), (gltf) => {
-      const root = gltf.scene;
-      root.position.set(0, 0, 0);
-      // scenes.game.add(ambientLight);
-      scenes.game.add(root);
-      cameraAnimating = true;
-      clearInputs();
-      clearTexts();
-      createInput();
-      showText("Jakie to miasto?");
-      input = document.querySelector(".user-input");
-      if (index !== gameModels.length - 1) {
-        clearButtons();
-        isGuessed = false;
-        createNextButton();
-      } else {
-        nextButton.innerHTML = "Zakończ";
-        nextButton.addEventListener("click", () => {
-          clearTexts();
-          clearInputs();
-          clearButtons();
-          showSummary();
-        });
-      }
-    });
-  }
-
-  function showSummary() {
-    clearTexts();
-    clearInputs();
-    clearButtons();
-    let summary = document.createElement("p");
-    summary.classList.add(
-      "animation-fade-in",
-      "text",
-      "text--large",
-      "text--center",
-      "summary",
-    );
-    summary.innerHTML = `Koniec gry!<br />Twój wynik to: ${score}/${gameModels.length}`;
-    document.body.appendChild(summary);
-    goToMenuBtn.classList.remove("hidden");
-  }
-
-  function createNextButton() {
-    nextButton.addEventListener("click", () => {
-      input = document.querySelector(".user-input");
-      if (isGuessed) {
-        console.log(input.value);
-        if (currentIndex === gameModels.length - 1) {
-          showSummary();
-          return;
-        }
-        scenes.game.children = [];
-        currentIndex++;
-        console.log(gameModels[currentIndex].getName());
-        clearTexts();
-        // loadModel(currentIndex);
-      } else {
-        if (
-          input.value.toLowerCase() ===
-          gameModels[currentIndex].getName().toLowerCase()
-        ) {
-          clearTexts();
-          showText("Dobrze!");
-          score++;
-          if (currentIndex !== gameModels.length - 1) {
-            nextButton.innerText = "Następne";
-          } else {
-            nextButton.innerText = "Zakończ";
-          }
-          isGuessed = true;
-          currentIndex++;
-          // loadModel(currentIndex);
-        } else {
-          clearTexts();
-          showText("Źle!");
-          if (currentIndex !== gameModels.length - 1) {
-            nextButton.innerText = "Następne";
-          } else {
-            nextButton.innerText = "Zakończ";
-          }
-          isGuessed = true;
-          currentIndex++;
-          // loadModel(currentIndex);
-        }
-      }
-    });
-  }
 }
 
 /**
@@ -163,7 +76,11 @@ function switchScene(sceneName) {
   if (sceneName === "game") {
     loadGameScene();
   } else {
-    // initMainScene();
+    document.body.removeChild(document.getElementsByClassName("summary")[0]);
+    nextButton.classList.add("hidden");
+    showDaneBtn.classList.add("hidden");
+    menu.classList.remove("hidden");
+    canvasWrapper.classList.add("hidden");
   }
 }
 
@@ -183,16 +100,6 @@ function animate() {
   renderer.render(scenes[currentScene], camera);
 }
 
-window.addEventListener(
-  "resize",
-  () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  },
-  false,
-);
-
 function main() {
   animate(); // animuje scene co klatke
 }
@@ -204,6 +111,8 @@ const goToMenuBtn = document.querySelector("#goToMenuBtn");
 const plot = document.querySelector("#plot");
 const canvas = document.getElementsByTagName("canvas")[0];
 canvas.classList.add("hidden");
+
+/** EVENT LISTENERS */
 
 playBtn.addEventListener("click", () => {
   switchScene("game");
@@ -223,11 +132,105 @@ showDaneBtn.addEventListener("click", () => {
 });
 
 goToMenuBtn.addEventListener("click", () => {
-  clearTexts();
-  clearInputs();
-  clearButtons();
   switchScene("main");
   goToMenuBtn.classList.add("hidden");
 });
 
+window.addEventListener(
+  "resize",
+  () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  },
+  false,
+);
+
+nextButton.addEventListener("click", () => {
+  const input = document.querySelector(".user-input");
+  camera.position.set(0, 0, 1);
+  console.log(input.value);
+  if (currentIndex === gameModels.length - 1) {
+    if (
+      input.value.toLowerCase().trim() ===
+      gameModels[currentIndex].getName().toLowerCase()
+    ) {
+      score++;
+    }
+    showSummary();
+    return;
+  }
+  scenes.game.children = [];
+  console.log(gameModels[currentIndex].getName());
+  clearTexts();
+  // loadModel(currentIndex);
+  console.log(input.value.toLowerCase());
+  console.log(gameModels[currentIndex].getName().toLowerCase());
+  if (
+    input.value.toLowerCase().trim() ===
+    gameModels[currentIndex].getName().toLowerCase()
+  ) {
+    clearTexts();
+    showText("Dobrze!");
+    score++;
+    if (currentIndex !== gameModels.length - 1) {
+      nextButton.innerText = "Następne";
+    } else {
+      nextButton.innerText = "Zakończ";
+    }
+    currentIndex++;
+    console.log(gameModels[currentIndex].getName());
+    loadModel(currentIndex);
+  } else {
+    clearTexts();
+    showText("Źle!");
+    if (currentIndex !== gameModels.length - 1) {
+      nextButton.innerText = "Następne";
+    } else {
+      nextButton.innerText = "Zakończ";
+    }
+    currentIndex++;
+    console.log(gameModels[currentIndex].getName());
+    loadModel(currentIndex);
+  }
+});
+
 main();
+
+function showSummary() {
+  clearTexts();
+  clearInputs();
+  let summary = document.createElement("p");
+  summary.classList.add(
+    "animation-fade-in",
+    "text",
+    "text--large",
+    "text--center",
+    "summary",
+  );
+  summary.innerHTML = `Koniec gry!<br />Twój wynik to: ${score}/${gameModels.length}`;
+  document.body.appendChild(summary);
+  goToMenuBtn.classList.remove("hidden");
+}
+
+const gltfLoader = new GLTFLoader();
+function loadModel(index) {
+  if (index >= gameModels.length) {
+    return;
+  }
+  gltfLoader.load(gameModels[index].getPath(), (gltf) => {
+    const root = gltf.scene;
+    root.position.set(0, 0, 0);
+    scenes.game.add(ambientLight);
+    scenes.game.add(root);
+    cameraAnimating = true;
+    clearInputs();
+    clearTexts();
+    createInput();
+    showText("Jakie to miasto?");
+    const input = document.querySelector(".user-input");
+    if (index === gameModels.length - 1) {
+      nextButton.innerHTML = "Zakończ";
+    }
+  });
+}

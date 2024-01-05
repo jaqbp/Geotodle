@@ -28,7 +28,7 @@ export function createNextButton() {
   document.body.appendChild(button);
 }
 
-export function initializeModelsInGame(pathToSetOfModels) {
+export function initializeModelsInGame() {
   const models = [
     new CityModel3d(
       "Halemba",
@@ -76,14 +76,6 @@ export function clearTexts() {
   const existingTexts = document.querySelectorAll(".animated-text");
   existingTexts.forEach((text) => {
     document.body.removeChild(text);
-  });
-}
-
-export function clearButtons() {
-  return;
-  const existingButtons = document.querySelectorAll(".animated-button");
-  existingButtons.forEach((button) => {
-    document.body.removeChild(button);
   });
 }
 

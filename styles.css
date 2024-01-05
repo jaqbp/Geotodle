@@ -23,10 +23,6 @@ body {
   margin-top: 4rem;
 }
 
-/* canvas {
-  display: none !important;
-} */
-
 .plot-container {
   position: relative;
 }
