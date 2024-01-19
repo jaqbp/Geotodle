@@ -208,6 +208,7 @@ main();
 function showSummary() {
   clearTexts();
   clearInputs();
+  nextButton.classList.add("hidden");
   let summary = document.createElement("p");
   summary.classList.add(
     "animation-fade-in",
@@ -216,7 +217,20 @@ function showSummary() {
     "text--center",
     "summary",
   );
-  summary.innerHTML = `Koniec gry!<br />Twój wynik to: ${score}/${gameModels.length}`;
+  summary.innerHTML = `Koniec gry!<br />Twój wynik to: ${score}/${gameModels.length} <br>`;
+
+  summary.classList.remove("text--large");
+  summary.classList.add("text--medium");
+  if (score !== gameModels.length) {
+    summary.innerHTML += `Miasta, które były w grze: <br>`;
+    gameModels.forEach((model) => {
+      summary.innerHTML += `${model.getName()}<br>`;
+    });
+    summary.innerHTML += 'Powodzenia następnym razem!'
+  }
+  else {
+    summary.innerHTML += 'Brawo! Wszystkie miasta odgadnięte!'
+  }
   document.body.appendChild(summary);
   goToMenuBtn.classList.remove("hidden");
 }
