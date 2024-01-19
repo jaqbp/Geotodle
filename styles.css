@@ -1,124 +1,164 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100&family=Poppins:wght@100&family=Prompt:wght@100&family=Raleway:wght@100&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100&family=Poppins:wght@100&family=Prompt:wght@100&family=Raleway:wght@100&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 body {
-    background-color: black;
-    margin: 0;
+  font-family:
+    Outfit,
+    sans serif;
+  background-color: black;
+  min-height: 100vh;
+  min-width: 100vh;
 }
-
-.animated-input {
-    animation: fadeIn2 1s ease-out;
-}
-
-.animated-button {
-    font-size: 30px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn2 {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/* .main-menu-button-container {
-    text-align: center;
-    padding: 1% 5%;
-    left: 40%;
-    width: 20rem;
-} */
-
-/* .start-button {
-    position: fixed;
-    top: 40%;
-}
-
-.info-button {
-    position: fixed;
-    top: 50%;
-}
-
-.previous-games-button {
-    position: fixed;
-    top: 60%;
-} */
 
 .menu {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    flex: 70%
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
 }
 
-.menu.hidden {
-    display: none;
+.plot-container {
+  position: relative;
 }
 
 #plot {
-    width: 30%;
+  position: absolute;
+  top: 22rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  color: white;
+
+  &.text--large {
+    font-size: 90px;
+  }
+
+  &.text--medium {
+    font-size: 50px;
+  }
+
+  &.text--center {
+    text-align: center;
+  }
+
+  &.text--question {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  gap: 2rem;
+}
+
+.options__btn {
+  padding-inline: 6rem;
+  padding-block: 1rem;
+  background-color: black;
+  border: 2px solid rgb(111, 111, 111);
+
+  &:hover {
+    background-color: rgb(111, 111, 111);
+  }
+}
+
+.btn {
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 10px;
+
+  &.btn--dane {
+    position: absolute;
+    top: 0;
+    right: 0;
     margin-top: 2rem;
-    margin-left: 2rem;
+    margin-right: 4rem;
+    padding: 1rem 1.5rem;
+    border: 2px solid black;
+    background-color: rgb(38, 38, 38);
+  }
+
+  &.btn--next {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: black;
+    margin-bottom: 2rem;
+    margin-right: 4rem;
+    padding: 1rem 1.5rem;
+    border: 2px solid black;
+    z-index: 150;
+  }
+}
+
+.user-input {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  translate: translateX(-50%);
+  padding: 0.75rem 1rem;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.summary {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.animation-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.animation-fade-in2 {
+  animation: fadeIn2 1s ease-out;
 }
 
 .hidden {
-    display: none;
+  display: none !important;
 }
 
-.gameplay.hidden {
-    display: none;
+.center-x {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
-/* .animated-text {
-    animation: fadeIn 1s ease-out;
-} */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
-.upper {
-    display: flex;
-    color: white;
-    flex: 30%;
-    align-items: center;
-    font-size: 90px;
-    font-family: Outfit, sans-serif;
-    animation: fadeIn 1s ease-out;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.button-group {
-    display: flex;
-    flex: 70%;
-    flex-direction: column;
-    margin-top: 4rem;
-    gap: 2rem;
-    animation: fadeIn 1s ease-out;
-}
+@keyframes fadeIn2 {
+  from {
+    opacity: 0;
+  }
 
-.menu-button {
-    color: white;
-    width: 20rem;
-    padding: 1rem 1rem;
-    background-color: black;
-    border: 2px solid rgb(111, 111, 111);
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 20px;
-}
-
-.menu-button:hover {
-    background-color: rgb(111, 111, 111);
+  to {
+    opacity: 1;
+  }
 }
