@@ -7,6 +7,26 @@ export function createInput() {
   document.body.appendChild(input);
 }
 
+export function getLinkForModel(modelName) {
+  const modelNameToLink = {
+    "Gliwice_predykcja": "//plotly.com/~bartsmo430/93.embed",
+    "Gliwice_bezrobocie": "//plotly.com/~bartsmo430/107.embed",
+    "Kędzierzyn-Koźle_predykcja": "//plotly.com/~bartsmo430/95.embed",
+    "Kędzierzyn-Koźle_bezrobocie": "//plotly.com/~bartsmo430/109.embed",
+    "Ruda Śląska_predykcja": "//plotly.com/~bartsmo430/97.embed",
+    "Ruda Śląska_bezrobocie": "//plotly.com/~bartsmo430/111.embed",
+    "Zamość_predykcja": "//plotly.com/~bartsmo430/99.embed",
+    "Zamość_bezrobocie": "//plotly.com/~bartsmo430/113.embed",
+    "Warszawa_predykcja": "//plotly.com/~bartsmo430/101.embed",
+    "Warszawa_bezrobocie": "//plotly.com/~bartsmo430/115.embed",
+    "Zakopane_predykcja": "//plotly.com/~bartsmo430/103.embed",
+    "Zakopane_bezrobocie": "//plotly.com/~bartsmo430/117.embed",
+    "Szczecin_predykcja": "//plotly.com/~bartsmo430/105.embed",
+    "Szczecin_bezrobocie": "//plotly.com/~bartsmo430/119.embed",
+  }
+  return modelNameToLink[modelName] || "";
+}
+
 export function showText(content) {
   const textDiv = document.createElement("div");
   textDiv.classList.add(
@@ -31,13 +51,17 @@ export function createNextButton() {
 export function initializeModelsInGame() {
   const models = [
     new CityModel3d(
+      "Ruda Śląska",
       "Halemba",
-      "Najwspanialsza dzielnica",
       "models/halemba_model.gltf",
     ),
-    new CityModel3d("Szczecin", "Masoneria i morze", "models/szczecin.gltf"),
     new CityModel3d(
-      "Zakopiec",
+      "Szczecin",
+      "Masoneria i morze",
+      "models/szczecin.gltf"
+    ),
+    new CityModel3d(
+      "Zakopane",
       "Drogie parkingi i krokiew",
       "models/zakopiec.gltf",
     ),
@@ -57,7 +81,7 @@ export function initializeModelsInGame() {
       "models/gliwice.gltf",
     ),
     new CityModel3d(
-      "Kędzierzyn",
+      "Kędzierzyn-Koźle",
       "Miasto zajebistości no c'mon",
       "models/kedzierzyn.gltf",
     ),
