@@ -24,14 +24,17 @@ body {
 }
 
 .plot-container {
-  position: relative;
-}
-
-#plot {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 22rem;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+iframe {
+  margin: 10px;
 }
 
 .text {
@@ -107,8 +110,8 @@ body {
 
 .user-input {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
+  bottom: 32px;
+  left: 40%;
   translate: translateX(-50%);
   padding: 0.75rem 1rem;
   border: 2px solid black;

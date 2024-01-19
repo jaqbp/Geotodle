@@ -1,9 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import chart_studio.plotly as py
-
-username = 'bartsmo430'  # Twoja nazwa użytkownika
-api_key = 'bzsfPDm7XI9ycRmHrC8n'  # Twój klucz API
+from credentials import username, api_key
 
 file_path = 'predykcjaLudnosci2060.xlsx'
 
@@ -16,15 +14,17 @@ for miasto in miasta:
     # Twórz wykres słupkowy
     fig_miasto = px.bar(data_miasto, x='Lata', y='Ogółem', color_discrete_sequence=['orange'])
     fig_miasto.update_layout(
-        title=f'Wykres słupkowy obrazujący predykcję ludności do roku 2060 dla miasta: {miasto}',
+        title=f'Predykcja ludności do roku 2060 dla tego miasta',
         xaxis_title='Lata',
         yaxis_title='Ilość osób',
-        width=800,
+        width=600,
         height=300,
         yaxis_range=[30000, 160000],
-        plot_bgcolor='#242424',  # Tło wykresu na czarno
-        paper_bgcolor='#242424',  # Tło całego wykresu na ciemnoszare
-        font=dict(color='white'),  # Kolor czcionki na biały
+        plot_bgcolor='#242424',
+        paper_bgcolor='#242424',
+        font=dict(color='white'),
+        title_font_size=14,
+        title_x = 0.5
     )
     fig_miasto.update_layout(bargap=0.3)
 
@@ -53,6 +53,7 @@ for miasto in miasta:
         )
     
     fig_miasto.show()
+    py.plot(fig_miasto, filename=miasto + "_predykcja", username=username, api_key=api_key)
 
 # Wykresy dla bezrobocia
 for miasto in miasta:
@@ -61,15 +62,17 @@ for miasto in miasta:
     # Twórz wykres słupkowy
     fig_miasto_bezrobocie = px.bar(data_miasto, x='Jednostka', y='osoba', color_discrete_sequence=['orange'])
     fig_miasto_bezrobocie.update_layout(
-        title=f'Wykres słupkowy obrazujący ilość bezrobocia zarejstrowanego w mieście: {miasto}',
+        title=f'Ilość bezrobocia zarejstrowanego w tym mieście',
         xaxis_title='Lata',
         yaxis_title='Ilość osób',
-        width=800,
+        width=600,
         height=300,
         yaxis_range=[0, 3000],
-        plot_bgcolor='#242424',  # Tło wykresu na czarno
-        paper_bgcolor='#242424',  # Tło całego wykresu na ciemnoszare
-        font=dict(color='white'),  # Kolor czcionki na biały
+        plot_bgcolor='#242424',
+        paper_bgcolor='#242424',
+        font=dict(color='white'),
+        title_font_size=14,
+        title_x = 0.5
     )
 
     if miasto == "Warszawa":
@@ -88,6 +91,4 @@ for miasto in miasta:
         )
     
     fig_miasto_bezrobocie.show()
-
-# Prześlij wykres na swoje konto w Chart Studio
-# py.plot(fig, filename='nazwa-wykresu', username=username, api_key=api_key)
+    py.plot(fig_miasto_bezrobocie, filename=miasto + "_bezrobocie", username=username, api_key=api_key)

@@ -6,6 +6,7 @@ import { showText } from "./functions.js";
 import { initializeModelsInGame } from "./functions.js";
 import { clearTexts } from "./functions.js";
 import { clearInputs } from "./functions.js";
+import { getLinkForModel } from "./functions.js";
 import "./styles.css";
 
 let currentScene = "main";
@@ -108,7 +109,8 @@ const menu = document.querySelector("#menu");
 const playBtn = document.querySelector("#play");
 const showDaneBtn = document.querySelector("#dane");
 const goToMenuBtn = document.querySelector("#goToMenuBtn");
-const plot = document.querySelector("#plot");
+const plot_predykcja = document.querySelector("#plot_predykcja");
+const plot_bezrobocie = document.querySelector("#plot_bezrobocie");
 const canvas = document.getElementsByTagName("canvas")[0];
 canvas.classList.add("hidden");
 
@@ -124,10 +126,15 @@ playBtn.addEventListener("click", () => {
 });
 
 showDaneBtn.addEventListener("click", () => {
-  if (plot.classList.contains("hidden")) {
-    plot.classList.remove("hidden");
+  if (plot_predykcja.classList.contains("hidden")) {
+    plot_predykcja.classList.remove("hidden");
   } else {
-    plot.classList.add("hidden");
+    plot_predykcja.classList.add("hidden");
+  }
+  if (plot_bezrobocie.classList.contains("hidden")) {
+    plot_bezrobocie.classList.remove("hidden");
+  } else {
+    plot_bezrobocie.classList.add("hidden");
   }
 });
 
@@ -181,6 +188,7 @@ nextButton.addEventListener("click", () => {
     currentIndex++;
     console.log(gameModels[currentIndex].getName());
     loadModel(currentIndex);
+    // to było to miejsce
   } else {
     clearTexts();
     showText("Źle!");
@@ -233,4 +241,9 @@ function loadModel(index) {
       nextButton.innerHTML = "Zakończ";
     }
   });
+  const newModelName = gameModels[currentIndex].getName()
+  const newSrcPredykcjaLink = getLinkForModel(newModelName + "_predykcja")
+  const newSrcBezrobocieLink = getLinkForModel(newModelName + "_bezrobocie")
+  plot_predykcja.src = newSrcPredykcjaLink;
+  plot_bezrobocie.src = newSrcBezrobocieLink;
 }
